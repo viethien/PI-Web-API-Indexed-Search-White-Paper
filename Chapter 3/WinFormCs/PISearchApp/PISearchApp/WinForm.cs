@@ -34,10 +34,16 @@ namespace PISearchApp
             InitializeComponent();
             cbQueryOptions.DataSource = Enum.GetValues(typeof(QueryOptions));
             cbQueryOptions.SelectedIndex = 0;
+            //Inicialize PI Web API Wrapper
             piWebApi = new PIWebAPISearchWrapper("https://marc-web-sql/piwebapi/");
+
+            //Get PI Web API sources string array
             string[] sourceList = piWebApi.GetSources().ToArray();
+
+            //Create the checkbox array for storing the checkboxes
             checkBoxSources = new System.Windows.Forms.CheckBox[sourceList.Count()];
 
+            //Instantiate one checkbox per source
             int j = -1;
             int m = 0;
             for (int i = 0; i < checkBoxSources.Length; i++)
@@ -46,12 +52,16 @@ namespace PISearchApp
                 {
                     checkBoxSources[i] = new System.Windows.Forms.CheckBox();
                     checkBoxSources[i].AutoSize = true;
+
+                    //For each checkbox it needs to be added on a different location
                     checkBoxSources[i].Location = new System.Drawing.Point(20 + 300 * j, 5 + 20 * m);
                     checkBoxSources[i].Name = "cbSource" + i;
                     checkBoxSources[i].Size = new System.Drawing.Size(79, 17);
                     checkBoxSources[i].TabIndex = 0;
                     checkBoxSources[i].Text = sourceList[i];
                     checkBoxSources[i].UseVisualStyleBackColor = true;
+
+                    //Add checkbox to the groupbox
                     this.gbDataSources.Controls.Add(checkBoxSources[i]);
                     if (i % 14 == 0)
                     {
@@ -63,7 +73,7 @@ namespace PISearchApp
             }
         }
 
-
+        //When the button is clicked, it will get data selected on the display and call the piWebAPI search action
         private void btnSearch_Click(object sender, EventArgs e)
         {
             string[] fields = GetFieldsArray();
@@ -82,6 +92,7 @@ namespace PISearchApp
             }
         }
 
+        //Private method used by the functions btnCopyJson_Click and btnViewJson_Click
         private void processSelectedItem(bool view)
         {
             if ((dicData == null) || (dicData.Keys.Count == 0))
@@ -108,16 +119,19 @@ namespace PISearchApp
             }
         }
 
-
+        //When this button is clicked, it will copy the json response to the clipboard
         private void btnCopyJson_Click(object sender, EventArgs e)
         {
             processSelectedItem(false);
         }
+
+        //When this button is clicked, it will display a message with the JSON response of the selected item
         private void btnViewJson_Click(object sender, EventArgs e)
         {
             processSelectedItem(true);
         }
 
+        //Make sure the query field is not empty
         public bool ValidateInputs()
         {
             if (string.IsNullOrEmpty(tbQuery.Text) == true)
@@ -131,6 +145,7 @@ namespace PISearchApp
             }
         }
 
+        //Get the status of the checkboxes from the WinForm and generate a string array with the selected sources
         private string[] GetSourceArray()
         {
             List<string> sourceList = new List<string>();
@@ -152,6 +167,7 @@ namespace PISearchApp
             }
         }
 
+        //Generate an string array according to state of each field checkbox 
         private string[] GetFieldsArray()
         {
             List<string> fieldsList = new List<string>();

@@ -30,11 +30,13 @@ namespace PISearchApp
     {
         public string Url = string.Empty;
         private string baseUrl = string.Empty;
+        //Main constructor that requires the base url of PI Web API
         public PIWebAPISearchWrapper(string piWebApiBaseurl)
         {
             baseUrl = piWebApiBaseurl;
         }
 
+        //Get string array with the available indexed sources (AF databases and PI Data Archives)
         public List<string> GetSources()
         {
             List<string> sourcesList = new List<string>();
@@ -46,6 +48,8 @@ namespace PISearchApp
             }
             return sourcesList;
         }
+
+        //Query the crawled data by keywords. The inputs of the method are the inputs of the PI Web API correspondent action
         public Dictionary<string, dynamic> Search(string query, QueryOptions queryOption, string[] scope = null, string[] fields = null, int count = 10, int start = 0)
         {
             List<string> foundItems = new List<string>();
@@ -61,6 +65,7 @@ namespace PISearchApp
             return dataDic;
         }
 
+        //This private method generates the query string to be used on the URL for making HTTP request against PI Web API
         private string GenerateQueryString(string[] parameterArray, string parameterName)
         {
             string queryString = string.Empty;
