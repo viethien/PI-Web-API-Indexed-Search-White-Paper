@@ -81,6 +81,7 @@ namespace PISearchApp
             return queryString;
         }
 
+        
         //This function is responsable for the HTTP GET request
         private dynamic MakeGetRequest(string url)
         {

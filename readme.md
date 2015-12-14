@@ -7,6 +7,9 @@ This repository is organized by chapters from the Developing with PI Web API Ind
 ##Getting Started
 You will need a development PI System, and a working instance of the PI Web API server with the indexed search features added. 
 
+##White Paper
+The [white paper](https://pisquare.osisoft.com/docs/DOC-1991) is available on [PISquare](https://pisquare.osisoft.com) for download. Please post a comment in case you have any doubts.
+
 ##Licensing
 Copyright 2015 OSIsoft, LLC.
 
